@@ -8,12 +8,10 @@ from playsound import playsound
 
 # Get project root directory
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Directory of audio filenames
 path_files = os.path.join(ROOT_DIR, "audiofiles")
 
 # Get audio filenames and paths
-
 # Experiment A
 exp_A_filename_paths = glob.glob("audiofiles/DS*mp3", root_dir=ROOT_DIR)
 exp_A_filenames = [f for f in os.listdir(path_files) if f.endswith(".mp3") and f.startswith("DS")]
@@ -21,30 +19,40 @@ exp_A_filenames = [f for f in os.listdir(path_files) if f.endswith(".mp3") and f
 exp_B_filename_paths = glob.glob("audiofiles/MD*mp3", root_dir=ROOT_DIR)
 exp_B_filenames = [f for f in os.listdir(path_files) if f.endswith(".mp3") and f.startswith("MD")]
 
+# Experiment A
 
 # Create audio playliosts counterbalancing for Type of Information Provided
+all_mantain_items = [re.search(r".*maintaining.mp3", i).group(0) for i in exp_A_filename_paths if re.search(r".*maintaining.mp3", i)]
+all_reducing_items = [re.search(r".*reducing.mp3", i).group(0) for i in exp_A_filename_paths if re.search(r".*reducing.mp3", i)]
+print(f"Maintain items: {all_mantain_items}")
+print(f"Reducing items: {all_reducing_items}")
 
-# all_mantain_items = [re.search(r".*maintaining.mp3", i).group(0) for i in exp_A_filename_paths if re.search(r".*maintaining.mp3", i)]
-# all_reducing_items = [re.search(r".*reducing.mp3", i).group(0) for i in exp_A_filename_paths if re.search(r".*reducing.mp3", i)]
-#
-# print(all_mantain_items)
-# print(all_reducing_items)
-#
-# print("maintaining item list")
-# for count, item in enumerate(all_mantain_items):
-#     print(f"{count} : {item}")
-#
-# print("reducing item list")
-# for count, item in enumerate(all_reducing_items):
-#     print(f"{count} : {item}")
+# Pre-defined playlist sequences in Exp. A
 
-# R M M R M R R M
-seq_1 = ["audiofiles/DS1_reducing.mp3", "audiofiles/DS2_maintaining.mp3", "audiofiles/DS3_maintaining.mp3", "audiofiles/DS4_reducing.mp3",
-         "audiofiles/DS5_maintaining.mp3", "audiofiles/DS6_reducing.mp3", "audiofiles/DS7_reducing.mp3", "audiofiles/DS8_maintaining.mp3"]
+# R = Reducing item
+# M = Maintaining item
 
-# M R R M R M M R
-seq_2 = ["audiofiles/DS1_maintaining.mp3", "audiofiles/DS2_reducing.mp3", "audiofiles/DS3_reducing.mp3", "audiofiles/DS4_maintaining.mp3",
-         "audiofiles/DS5_reducing.mp3", "audiofiles/DS6_maintaining.mp3", "audiofiles/DS7_maintaining.mp3", "audiofiles/DS8_reducing.mp3"]
+# Sequence: R M M R M R R M
+seq_1 = ["../audiofiles/DS1_reducing.mp3", "../audiofiles/DS2_maintaining.mp3", "../audiofiles/DS3_maintaining.mp3",
+         "../audiofiles/DS4_reducing.mp3",
+         "../audiofiles/DS5_maintaining.mp3", "../audiofiles/DS6_reducing.mp3", "../audiofiles/DS7_reducing.mp3",
+         "../audiofiles/DS8_maintaining.mp3"]
+# Sequence: M R R M R M M R
+seq_2 = ["../audiofiles/DS1_maintaining.mp3", "../audiofiles/DS2_reducing.mp3", "../audiofiles/DS3_reducing.mp3",
+         "../audiofiles/DS4_maintaining.mp3",
+         "../audiofiles/DS5_reducing.mp3", "../audiofiles/DS6_maintaining.mp3", "../audiofiles/DS7_maintaining.mp3",
+         "../audiofiles/DS8_reducing.mp3"]
+
+
+# Experiment B
+scenario_1 = ["../audiofiles/" + re.search(r"MD1.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD1.*.mp3", i)]
+scenario_2 = ["../audiofiles/" + re.search(r"MD2.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD2.*.mp3", i)]
+scenario_3 = ["../audiofiles/" + re.search(r"MD3.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD3.*.mp3", i)]
+scenario_4 = ["../audiofiles/" + re.search(r"MD4.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD4.*.mp3", i)]
+scenario_5 = ["../audiofiles/" + re.search(r"MD5.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD5.*.mp3", i)]
+scenario_6 = ["../audiofiles/" + re.search(r"MD6.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD6.*.mp3", i)]
+scenario_7 = ["../audiofiles/" + re.search(r"MD7.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD7.*.mp3", i)]
+scenario_8 = ["../audiofiles/" + re.search(r"MD8.*.mp3", i).group(0) for i in exp_B_filename_paths if re.search(r"MD8.*.mp3", i)]
 
 
 # Test lists
@@ -53,6 +61,7 @@ print(testlist1)
 
 testlist2 = exp_B_filename_paths[0:3]
 print(testlist2)
+
 
 # Plays input mp3 playlist in sequence without user interface. Once it starts it cannot be stopped.
 
@@ -102,6 +111,11 @@ def play_unstoppable_audio_sequence(playlist, pause_duration_secs):
             "Arguments must be a list of filename paths and an integer indicating the desired interval of silence between playing audio files")
 
 
-# Test function
+# Run
+play_unstoppable_audio_sequence(testlist1, 1)
 
-play_unstoppable_audio_sequence(seq_1, 1)
+# Experiment A test
+# play_unstoppable_audio_sequence(seq_1, 1)
+
+# Experiment B test
+# play_unstoppable_audio_sequence(scenario_1, 1)
