@@ -14,7 +14,7 @@ path_files = os.path.join(ROOT_DIR, "audiofiles")
 
 # Get audio filenames and paths
 # Experiment B
-exp_B_filename_paths = glob.glob("audiofiles/MD*mp3")
+exp_B_filename_paths = glob.glob(os.path.join(ROOT_DIR, "audiofiles", "MD*mp3"))
 exp_B_filenames = [f for f in os.listdir(path_files) if f.endswith(".mp3") and f.startswith("MD")]
 print(exp_B_filenames)
 
@@ -22,7 +22,8 @@ def start_jukebox_B(list_file_paths, condition, group_id):
 
     # Define input playlist
     input_list = [f for f in list_file_paths]
-    track_names = [re.sub("^audiofiles\/","", f) for f in list_file_paths if f.endswith(".mp3")]
+    # track_names = [re.sub("^audiofiles\/","", f) for f in list_file_paths if f.endswith(".mp3")]
+    track_names = [os.path.basename(f) for f in list_file_paths if f.endswith(".mp3")]
 
     def display_playlist(track_names):
         print(f"\nType number and press ENTER to play statement:\n"
