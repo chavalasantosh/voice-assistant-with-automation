@@ -109,7 +109,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-va_automation_env/
 
 # Spyder project settings
 .spyderproject
