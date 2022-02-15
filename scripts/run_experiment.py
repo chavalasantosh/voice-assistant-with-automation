@@ -8,27 +8,41 @@ import pandas as pd
 
 # Get project root directory
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Directory of audio filenames
-path_files = os.path.join(ROOT_DIR, "audiofiles")
+
+# Directories of audio filenames
+
+# Voice assistant introduction
+va_intro_active = os.path.join(ROOT_DIR, "audiofiles", "va_intro", "active")
+va_intro_passive = os.path.join(ROOT_DIR, "audiofiles", "va_intro", "passive")
+# Experiment A file paths
+path_files_exp_a_active = os.path.join(ROOT_DIR, "audiofiles", "exp_a", "active")
+path_files_exp_a_active = os.path.join(ROOT_DIR, "audiofiles", "exp_a", "active")
+# Experiment B file paths
+path_files_exp_b_active_pat1 = os.path.join(ROOT_DIR, "audiofiles", "exp_b", "active", "pattern_1")
+path_files_exp_b_active_pat2 = os.path.join(ROOT_DIR, "audiofiles", "exp_b", "active", "pattern_2")
+path_files_exp_b_passive_pat1 = os.path.join(ROOT_DIR, "audiofiles", "exp_b", "passive", "pattern_1")
+path_files_exp_b_passive_pat2 = os.path.join(ROOT_DIR, "audiofiles", "exp_b", "passive", "pattern_2")
 
 
+# Experiment selector
 def select_exp():
-    # Experiment selector
     exp_selected = input(f"\nType key then ENTER to select condition:\n"
                           f"A: Experiment A: VA agency\n"
                           f"B: Experiment B: Type of Information x VA autonomy\n")
 
     if (exp_selected.lower() == "a"):
-        tag = "exp_A"
+        exp_tag = "exp_A"
         exp_str = "Experiment A: VA agency"
     elif (exp_selected.lower() == "b"):
-        tag = "exp_B"
+        exp_tag = "exp_B"
         exp_str = "Experiment B: Type of Information x VA autonomy"
     else:
+        exp_tag = None
         exp_str = "Invalid choice"
     print(f"Condition initiated: {exp_str}")
-    return(tag)
+    return(exp_tag)
 
+# Experiment A condition selector
 def exp_A_select_condition():
     # Condition selector
     cond_selected = input(f"\nType key then ENTER to select condition:\n"
@@ -42,11 +56,12 @@ def exp_A_select_condition():
         cond_tag = "exp_A_passive"
         cond_str = "Passive"
     else:
+        cond_tag = None
         cond_str = "Invalid choice"
     print(f"Condition initiated: {cond_str}")
-    return (cond_tag)
+    return(cond_tag)
 
-
+# Experiment B condition selector
 def exp_B_select_condition():
     # Condition selector
     cond_selected = input(f"\nType number and press ENTER to select condition:\n"
@@ -68,23 +83,33 @@ def exp_B_select_condition():
         cond_tag = "exp_B_apassive_pat2"
         cond_str = "Passive - Pattern 2"
     else:
+        cond_tag = None
         cond_str = "Invalid choice"
 
     print(f"Condition initiated: {cond_str}")
-    return (cond_tag)
+    return(cond_tag)
 
 
+# Selection of experiment via user input
 selected_exp = select_exp()
 
+# Automatically open list of conditions for selected experiment so user can choose the desired condition
 if(selected_exp == "exp_A"):
     choice = exp_A_select_condition()
 else:
     choice = exp_B_select_condition()
 
 
-# Get audio filenames and paths
-# Experiment B
-filename_paths = glob.glob(os.path.join(ROOT_DIR, "audiofiles", "exp_b", "MD*mp3"))
+# Define playlist based on selected experiment and respective condition
+if(choice == "exp_A_active"):
+    # Get audio filenames and paths
+    filepaths = glob.glob(os.path.join(path_files_exp_a_active_or_passive, ".*.mp3$"))
+    filepaths = [f for f in filepaths if f not in ["inter_intro_active1.mp3", "inter_intro_active2.mp3"]]
+
+
+
+
+
 
 
 # filenames = [f for f in os.listdir(path_files) if f.endswith(".mp3") and f.startswith("MD")]
